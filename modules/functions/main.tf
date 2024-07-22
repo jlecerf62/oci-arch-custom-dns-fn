@@ -40,7 +40,7 @@ resource "oci_functions_application" "this" {
   config                     = each.value.config_params != null ? each.value.config_params : {}
   
   network_security_group_ids =  each.value.nsg_names != null ? [ for nsg_name in each.value.nsg_names : var.nsg_ids[nsg_name] ] : null
-  
+  shape = "GENERIC_X86_ARM"
   dynamic "image_policy_config" {
     for_each  = ( each.value.image_signature_keys != null &&
                   each.value.image_signature_keys != [] ?
